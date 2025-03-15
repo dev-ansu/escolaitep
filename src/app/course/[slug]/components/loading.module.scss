@@ -1,0 +1,11 @@
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 64px);
+    h1{
+        font-size: 32px;
+        color: #121212;
+    }
+}
