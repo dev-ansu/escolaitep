@@ -5,7 +5,9 @@ import { Metadata } from "next"
 import Content from "./components/content";
 import { LoadingPage } from "./components/loading";
 
-export async function generateMetadata({ params: { slug }}: { params: { slug: string }}){
+export async function generateMetadata({ params }: { params: { slug: string }}): Promise<Metadata>{
+    const { slug } = await params;
+
     try{
         const { objects }: PageProps = await getPageBySlug(slug).catch(()=>{
             return {
@@ -40,9 +42,9 @@ export async function generateMetadata({ params: { slug }}: { params: { slug: st
     } 
 }
 
-const Course = async ({ params: { slug }}: { params: { slug: string }})=>{
-    
-    
+const Course = async({ params }: { params: { slug: string }})=>{
+    const { slug } = await params;
+
     return (
         <>
             <Suspense fallback={<LoadingPage />}>

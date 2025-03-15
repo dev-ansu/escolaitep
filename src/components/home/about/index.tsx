@@ -46,7 +46,7 @@ const About =  async ({ object }: HomeProps)=>{
 
                 {objects.map( (curso, i) => (
                     <Link className={styles.courseLink} href={`/course/${curso.slug}`}>
-                        <article key={curso.slug} className={styles.course}>
+                        <article key={i} className={styles.course}>
                             <div className={styles.innerCourse}>
                             <Image 
                                 className={styles.imageCourse}
