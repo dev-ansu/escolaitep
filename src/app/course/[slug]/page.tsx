@@ -5,7 +5,7 @@ import { Metadata } from "next"
 import Content from "./components/content";
 import { LoadingPage } from "./components/loading";
 
-export async function generateMetadata({ params: { slug }}: { params: { slug: string }}): Promise<Metadata>{
+export async function generateMetadata({ params: { slug }}: { params: { slug: string }}){
     try{
         const { objects }: PageProps = await getPageBySlug(slug).catch(()=>{
             return {
