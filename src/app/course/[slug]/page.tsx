@@ -4,20 +4,28 @@ import { PageProps } from "@/utils/page.type";
 import { Metadata } from "next"
 import Content from "./components/content";
 import { LoadingPage } from "./components/loading";
+import { Params } from "next/dist/server/request/params";
 
 export interface CourseProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params: { slug } }: CourseProps): Promise<Metadata>{
-
+export async function generateMetadata({ params }: CourseProps): Promise<Metadata>{
+    const { slug } = await params;
     try{
-        const { objects }: PageProps = await getPageBySlug(slug).catch(()=>{
+        const {objects}: PageProps = await getPageBySlug(slug).catch(()=>{
             return {
                 title: "ITEP",
                 description: "Instituto de Tecnologia e Ensino Profissionalizante"
             }
         })
+
+        if (!objects?.length) {
+            return {
+                title: "ITEP",
+                description: "Instituto de Tecnologia e Ensino Profissionalizante",
+            };
+        }
 
         return {
             title: `ITEP - ${objects[0].title}`,
@@ -45,7 +53,8 @@ export async function generateMetadata({ params: { slug } }: CourseProps): Promi
     } 
 }
 
-const Course = async({ params: { slug } }: CourseProps)=>{
+const Course = async({ params }: CourseProps)=>{
+    const { slug } = await params;
 
     return (
         <>
