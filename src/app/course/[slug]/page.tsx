@@ -1,11 +1,15 @@
 import {Suspense} from "react"
 import { getPageBySlug } from "@/utils/actions/get-data";
 import { PageProps } from "@/utils/page.type";
+import { Metadata } from "next"
 import Content from "./components/content";
 import { LoadingPage } from "./components/loading";
 
-export async function generateMetadata({ params }: { params: { slug: string }}){
-    const { slug } = await params;
+export interface CourseProps {
+    params: { slug: string };
+}
+
+export async function generateMetadata({ params: { slug } }: CourseProps): Promise<Metadata>{
 
     try{
         const { objects }: PageProps = await getPageBySlug(slug).catch(()=>{
@@ -41,8 +45,7 @@ export async function generateMetadata({ params }: { params: { slug: string }}){
     } 
 }
 
-const Course = async({ params }: { params: { slug: string }})=>{
-    const { slug } = await params;
+const Course = async({ params: { slug } }: CourseProps)=>{
 
     return (
         <>
