@@ -1,11 +1,10 @@
 import {Suspense} from "react"
 import { getPageBySlug } from "@/utils/actions/get-data";
 import { PageProps } from "@/utils/page.type";
-import { Metadata } from "next"
 import Content from "./components/content";
 import { LoadingPage } from "./components/loading";
 
-export async function generateMetadata({ params }: { params: { slug: string }}): Promise<Metadata>{
+export async function generateMetadata({ params }: { params: { slug: string }}){
     const { slug } = await params;
 
     try{
